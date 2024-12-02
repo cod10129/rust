@@ -525,6 +525,7 @@ enum EditorKind {
     Vim,
     Emacs,
     Helix,
+    Zed,
 }
 
 impl EditorKind {
@@ -534,6 +535,7 @@ impl EditorKind {
 2. vim
 3. emacs
 4. helix
+5. zed
 
 Select which editor you would like to set up [default: None]: ";
 
@@ -548,6 +550,7 @@ Select which editor you would like to set up [default: None]: ";
                 "2" | "vim" => return Ok(Some(EditorKind::Vim)),
                 "3" | "emacs" => return Ok(Some(EditorKind::Emacs)),
                 "4" | "helix" => return Ok(Some(EditorKind::Helix)),
+                "5" | "zed" => return Ok(Some(EditorKind::Zed)),
                 "" => return Ok(None),
                 _ => {
                     eprintln!("ERROR: unrecognized option '{}'", input.trim());
@@ -580,6 +583,9 @@ Select which editor you would like to set up [default: None]: ";
             EditorKind::Helix => {
                 vec!["2d3069b8cf1b977e5d4023965eb6199597755e6c96c185ed5f2854f98b83d233"]
             }
+            EditorKind::Zed => {
+                vec!["2c2def4ea7fe5d4ddde34b378af98d49a3b40802fd24f915e7a2304408b2f41e"]
+            }
         }
     }
 
@@ -593,6 +599,7 @@ Select which editor you would like to set up [default: None]: ";
             EditorKind::Vim => "coc-settings.json",
             EditorKind::Emacs => ".dir-locals.el",
             EditorKind::Helix => "languages.toml",
+            EditorKind::Zed => "settings.json",
         })
     }
 
@@ -602,6 +609,7 @@ Select which editor you would like to set up [default: None]: ";
             EditorKind::Vim => PathBuf::from(".vim"),
             EditorKind::Emacs => PathBuf::new(),
             EditorKind::Helix => PathBuf::from(".helix"),
+            EditorKind::Zed => PathBuf::from(".zed"),
         }
     }
 
@@ -612,6 +620,7 @@ Select which editor you would like to set up [default: None]: ";
             }
             EditorKind::Emacs => include_str!("../../../../etc/rust_analyzer_eglot.el"),
             EditorKind::Helix => include_str!("../../../../etc/rust_analyzer_helix.toml"),
+            EditorKind::Zed => include_str!("../../../../etc/rust_analyzer_zed_settings.json"),
         }
     }
 
